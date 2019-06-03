@@ -20,16 +20,16 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
-    if(error) return res.status(400).error(error.details[0].message);
+    if(error) return res.status(400).send(error.details[0].message);
 
     let jobpost = new JobPost({
-        user_type: user_type._id,
-        job_type: job_type._id,
-        company: company._id,
+        user_type: req.body.user_type,
+        job_type: req.body.job_type,
+        company: req.body.company,
         is_company_name_hidden: req.body.is_company_name_hidden,
         created_date: req.body.created_date,
         job_description: req.body.job_description,
-        job_location: job_location._id,
+        job_location: req.body.job_location,
         is_active: req.body.is_active
 
 
@@ -41,20 +41,20 @@ router.post('/', async (req, res) => {
 });
 
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { error } = validate(req.body);
-    if(error) return res.status(400).error(error.details[0].message);
+    if(error) return res.status(400).send(error.details[0].message);
 
     const jobpost = await JobPost.findByIdAndUpdate(req.params.id,
         {
             
-        user_type: user_type._id,
-        job_type: job_type._id,
-        company: company._id,
+        user_type: req.body.user_type,
+        job_type: req.body.job_type,
+        company: req.body.company,
         is_company_name_hidden: req.body.is_company_name_hidden,
         created_date: req.body.created_date,
         job_description: req.body.job_description,
-        job_location: job_location._id,
+        job_location: req.body.job_location,
         is_active: req.body.is_active
         },
         {new: true});

@@ -58,7 +58,7 @@ function validateJobPost(jobpost){
         job_location: Joi.string().required(),
         is_active: Joi.boolean().required()
     };
-    return Joi.validate(jobpost, job_post_Schema);
+    return Joi.validate(jobpost, schema);
 
 }
 

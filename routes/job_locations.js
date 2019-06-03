@@ -1,4 +1,4 @@
-const {JobLocation, validate} = require('../models/user_account');
+const {JobLocation, validate} = require('../models/job_location');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
-    if(error) return res.status(400).error(error.details[0].message);
+    if(error) return res.status(400).send(error.details[0].message);
 
     let joblocation = new JobLocation({
         street_address: req.body.street_address,
@@ -37,9 +37,9 @@ router.post('/', async (req, res) => {
 });
 
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { error } = validate(req.body);
-    if(error) return res.status(400).error(error.details[0].message);
+    if(error) return res.status(400).send(error.details[0].message);
 
     const joblocation = await JobLocation.findByIdAndUpdate(req.params.id,
         {

@@ -15,7 +15,7 @@ function validateJobType(jobtype){
     const schema = {
         job_type_name: Joi.string().required()
     };
-    return Joi.validate(jobtype, job_type_schema);
+    return Joi.validate(jobtype, schema);
 
 }
 
